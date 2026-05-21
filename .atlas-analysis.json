@@ -1,0 +1,49 @@
+{
+  "projectType": "saas",
+  "projectName": "Skipper Foundation",
+  "projectDescription": "A faith-driven non-profit led by Skipper Nyongesa that delivers leadership training, motivational speaking, and mentorship across Kenya's schools and communities.",
+  "theme": "almond",
+  "primaryColor": "#927746",
+  "lightColor": "#e0d390",
+  "darkColor": "#161720",
+  "navigation": {
+    "groups": [
+      {
+        "group": "Overview",
+        "pages": ["introduction", "our-mission"]
+      },
+      {
+        "group": "Our Work",
+        "pages": ["programs/student-leadership", "programs/motivational-speaking", "programs/mentorship", "programs/teacher-development"]
+      },
+      {
+        "group": "The Founder",
+        "pages": ["about/skipper-nyongesa"]
+      },
+      {
+        "group": "Get Involved",
+        "pages": ["get-involved/book-a-session", "get-involved/donate", "get-involved/partner"]
+      },
+      {
+        "group": "News & Impact",
+        "pages": ["news/latest-news", "news/impact-stories"]
+      }
+    ]
+  },
+  "keyFeatures": [
+    "Student Leadership Training for school presidents, prefects, and student councils",
+    "Motivational Speaking — assemblies, workshops, and keynote addresses",
+    "Mentorship Programs — one-on-one and group mentorship",
+    "Teacher Development Workshops for educators and administrators",
+    "Community Outreach — faith-based talks, youth forums, and empowerment sessions",
+    "Session Booking via contact form and WhatsApp",
+    "Donation and sponsorship options (workshops, student sponsorships, partnerships)"
+  ],
+  "publicApiSurface": [
+    "Contact / session booking form (Formspree + Supabase)",
+    "WhatsApp direct booking link",
+    "Donation inquiry (direct contact)",
+    "News & Insights articles",
+    "Gallery of training sessions and school visits"
+  ]
+}

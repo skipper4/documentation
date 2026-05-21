@@ -1,0 +1,53 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "name": "Skipper Foundation",
+  "theme": "almond",
+  "favicon": "https://media.brand.dev/0f7b5fbc-544c-4b3d-bb0f-6dc72b6d1e69.png",
+  "colors": {
+    "primary": "#927746",
+    "light": "#e0d390",
+    "dark": "#161720"
+  },
+  "appearance": {
+    "default": "dark"
+  },
+  "navbar": {
+    "primary": {
+      "type": "github",
+      "href": "https://github.com/skipper4/Skipper-Foundation"
+    }
+  },
+  "navigation": {
+    "groups": [
+      {
+        "group": "Overview",
+        "pages": ["introduction", "our-mission"]
+      },
+      {
+        "group": "Our Work",
+        "pages": [
+          "programs/student-leadership",
+          "programs/motivational-speaking",
+          "programs/mentorship",
+          "programs/teacher-development"
+        ]
+      },
+      {
+        "group": "The Founder",
+        "pages": ["about/skipper-nyongesa"]
+      },
+      {
+        "group": "Get Involved",
+        "pages": [
+          "get-involved/book-a-session",
+          "get-involved/donate",
+          "get-involved/partner"
+        ]
+      },
+      {
+        "group": "News & Impact",
+        "pages": ["news/latest-news", "news/impact-stories"]
+      }
+    ]
+  }
+}
