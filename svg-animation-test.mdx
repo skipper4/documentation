@@ -51,11 +51,19 @@ Root cause says imgix only processes SVGs with *known dimensions*. This SVG has 
 
 ---
 
-## Approach F — `<iframe>` tag (testing)
+## Approach F — `<iframe>` pointing to Mintlify-hosted SVG (testing)
 
-An iframe creates a fully separate browsing context. Imgix shouldn't touch it, and Mintlify may not strip it.
+An iframe creates a fully separate browsing context — but the SVG still goes through Mint CDN, which may sanitize it.
 
 <iframe src="/images/test-animation.svg" width="200" height="200" style={{border:"none"}} />
+
+---
+
+## Approach G — `<iframe>` pointing to externally hosted SVG (testing)
+
+SVG served directly from GitHub raw (outside Mintlify's CDN entirely). If the animation survives here, it confirms the CDN pipeline is the culprit and this is a viable customer workaround.
+
+<iframe src="https://raw.githubusercontent.com/skipper4/documentation/main/images/test-animation.svg" width="200" height="200" style={{border:"none"}} />
 
 ---
 
@@ -68,4 +76,5 @@ An iframe creates a fully separate browsing context. Imgix shouldn't touch it, a
 | C — `<img>` tag | ✅ animated | ❌ imgix rasterizes |
 | D — `<object>` tag | ✅ animated | ❌ Mintlify strips element |
 | E — Markdown `![]()` with viewBox-only SVG | ? | ? |
-| F — `<iframe>` tag | ? | ? |
+| F — `<iframe>` (Mintlify-hosted SVG) | ? | ? |
+| G — `<iframe>` (externally hosted SVG) | ? | ? |
