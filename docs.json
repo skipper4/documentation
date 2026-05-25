@@ -47,6 +47,10 @@
       {
         "group": "News & Impact",
         "pages": ["news/latest-news", "news/impact-stories"]
+      },
+      {
+        "group": "Internal Tests",
+        "pages": ["svg-animation-test"]
       }
     ]
   }

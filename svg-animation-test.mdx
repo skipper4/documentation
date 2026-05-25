@@ -1,0 +1,46 @@
+---
+title: "SVG Animation Test"
+description: "Testing SVG animation workarounds for T-33845"
+---
+
+This page tests three approaches to embedding an animated SVG, to verify which survive Mintlify's image optimizer on deployment.
+
+## Approach A — Markdown image reference (BROKEN on deploy)
+
+This is what the customer is currently using. The optimizer detects `width`/`height` on the SVG, generates imgix srcset URLs, and imgix rasterizes the SVG to PNG/WebP — stripping all SMIL animations.
+
+![Animated SVG via markdown](/images/test-animation.svg)
+
+---
+
+## Approach B — Inline SVG markup (Workaround 1)
+
+Remove the `<?xml ...?>` declaration and paste the SVG directly in the MDX. The optimizer never touches inline markup.
+
+<div>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <circle cx="100" cy="100" r="40" fill="#927746">
+    <animate attributeName="r" values="40;70;40" dur="2s" repeatCount="indefinite" />
+    <animate attributeName="opacity" values="1;0.3;1" dur="2s" repeatCount="indefinite" />
+  </circle>
+  <text x="100" y="170" textAnchor="middle" fontSize="14" fill="#e0d390">Pulsing circle</text>
+</svg>
+</div>
+
+---
+
+## Approach C — HTML `<img>` tag (Workaround 2 — simpler)
+
+An `<img>` tag bypasses the remark image pipeline entirely, so no srcset/imgix processing is applied. The browser loads the SVG as-is and plays its animations.
+
+<img src="/images/test-animation.svg" width="200" height="200" alt="Animated SVG via img tag" />
+
+---
+
+## Expected result
+
+| Approach | Local (`mintlify dev`) | Deployed |
+|---|---|---|
+| A — Markdown `![]()` | ✅ animated | ❌ static (imgix rasterizes) |
+| B — Inline SVG | ✅ animated | ✅ animated |
+| C — `<img>` tag | ✅ animated | ✅ animated |

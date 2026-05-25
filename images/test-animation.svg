@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <circle cx="100" cy="100" r="40" fill="#927746">
+    <animate attributeName="r" values="40;70;40" dur="2s" repeatCount="indefinite" />
+    <animate attributeName="opacity" values="1;0.3;1" dur="2s" repeatCount="indefinite" />
+  </circle>
+  <text x="100" y="170" text-anchor="middle" font-size="14" fill="#e0d390">Pulsing circle</text>
+</svg>
