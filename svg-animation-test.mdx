@@ -3,19 +3,19 @@ title: "SVG Animation Test"
 description: "Testing SVG animation workarounds for T-33845"
 ---
 
-This page tests three approaches to embedding an animated SVG, to verify which survive Mintlify's image optimizer on deployment.
+This page tests four approaches to embedding an animated SVG, to verify which survive Mintlify's image optimizer on deployment.
 
 ## Approach A — Markdown image reference (BROKEN on deploy)
 
-This is what the customer is currently using. The optimizer detects `width`/`height` on the SVG, generates imgix srcset URLs, and imgix rasterizes the SVG to PNG/WebP — stripping all SMIL animations.
+The optimizer detects `width`/`height` on the SVG, generates imgix srcset URLs, and imgix rasterizes the SVG to PNG/WebP — stripping all SMIL animations.
 
 ![Animated SVG via markdown](/images/test-animation.svg)
 
 ---
 
-## Approach B — Inline SVG markup (Workaround 1)
+## Approach B — Inline SVG markup (BROKEN on deploy)
 
-Remove the `<?xml ...?>` declaration and paste the SVG directly in the MDX. The optimizer never touches inline markup.
+MDX strips all SVG children during bundling — the `<svg>` tag renders empty.
 
 <div>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
@@ -29,18 +29,27 @@ Remove the `<?xml ...?>` declaration and paste the SVG directly in the MDX. The 
 
 ---
 
-## Approach C — HTML `<img>` tag (Workaround 2 — simpler)
+## Approach C — HTML `<img>` tag (BROKEN on deploy)
 
-An `<img>` tag bypasses the remark image pipeline entirely, so no srcset/imgix processing is applied. The browser loads the SVG as-is and plays its animations.
+Mintlify also processes `<img>` tags through imgix — same rasterization problem as A.
 
 <img src="/images/test-animation.svg" width="200" height="200" alt="Animated SVG via img tag" />
 
 ---
 
-## Expected result
+## Approach D — `<object>` tag (testing)
 
-| Approach | Local (`mintlify dev`) | Deployed |
+An `<object>` tag loads the SVG as a full document in its own browsing context. Imgix doesn't touch it, and MDX doesn't strip its contents.
+
+<object type="image/svg+xml" data="/images/test-animation.svg" width="200" height="200">SVG not supported</object>
+
+---
+
+## Results
+
+| Approach | Local | Deployed |
 |---|---|---|
-| A — Markdown `![]()` | ✅ animated | ❌ static (imgix rasterizes) |
-| B — Inline SVG | ✅ animated | ✅ animated |
-| C — `<img>` tag | ✅ animated | ✅ animated |
+| A — Markdown `![]()` | ✅ animated | ❌ imgix rasterizes |
+| B — Inline SVG | ✅ animated | ❌ MDX strips children |
+| C — `<img>` tag | ✅ animated | ❌ imgix rasterizes |
+| D — `<object>` tag | ? | ? |
