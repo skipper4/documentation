@@ -3,17 +3,17 @@ title: "SVG Animation Test"
 description: "Testing SVG animation workarounds for T-33845"
 ---
 
-This page tests four approaches to embedding an animated SVG, to verify which survive Mintlify's image optimizer on deployment.
+This page tests approaches to embedding an animated SVG, to verify which survive Mintlify's image optimizer on deployment.
 
-## Approach A — Markdown image reference (BROKEN on deploy)
+## Approach A — Markdown image reference (BROKEN)
 
-The optimizer detects `width`/`height` on the SVG, generates imgix srcset URLs, and imgix rasterizes the SVG to PNG/WebP — stripping all SMIL animations.
+Imgix detects `width`/`height` on the SVG, generates srcset URLs with explicit `w=` params, and rasterizes to PNG/WebP — stripping SMIL animations.
 
 ![Animated SVG via markdown](/images/test-animation.svg)
 
 ---
 
-## Approach B — Inline SVG markup (BROKEN on deploy)
+## Approach B — Inline SVG markup (BROKEN)
 
 MDX strips all SVG children during bundling — the `<svg>` tag renders empty.
 
@@ -29,27 +29,43 @@ MDX strips all SVG children during bundling — the `<svg>` tag renders empty.
 
 ---
 
-## Approach C — HTML `<img>` tag (BROKEN on deploy)
+## Approach C — HTML `<img>` tag (BROKEN)
 
-Mintlify also processes `<img>` tags through imgix — same rasterization problem as A.
+Mintlify also processes `<img>` tags through imgix — same rasterization as A.
 
 <img src="/images/test-animation.svg" width="200" height="200" alt="Animated SVG via img tag" />
 
 ---
 
-## Approach D — `<object>` tag (testing)
+## Approach D — `<object>` tag (BROKEN)
 
-An `<object>` tag loads the SVG as a full document in its own browsing context. Imgix doesn't touch it, and MDX doesn't strip its contents.
-
-<object type="image/svg+xml" data="/images/test-animation.svg" width="200" height="200">SVG not supported</object>
+Mintlify strips `<object>` tags entirely from the rendered output.
 
 ---
 
-## Results
+## Approach E — Markdown ref to SVG with viewBox only, no width/height (testing)
+
+Root cause says imgix only processes SVGs with *known dimensions*. This SVG has only `viewBox`, no `width`/`height` attributes — imgix may skip srcset generation and serve it as-is.
+
+![Animated SVG no size via markdown](/images/test-animation-nosize.svg)
+
+---
+
+## Approach F — `<iframe>` tag (testing)
+
+An iframe creates a fully separate browsing context. Imgix shouldn't touch it, and Mintlify may not strip it.
+
+<iframe src="/images/test-animation.svg" width="200" height="200" style={{border:"none"}} />
+
+---
+
+## Results so far
 
 | Approach | Local | Deployed |
 |---|---|---|
-| A — Markdown `![]()` | ✅ animated | ❌ imgix rasterizes |
+| A — Markdown `![]()` with sized SVG | ✅ animated | ❌ imgix rasterizes |
 | B — Inline SVG | ✅ animated | ❌ MDX strips children |
 | C — `<img>` tag | ✅ animated | ❌ imgix rasterizes |
-| D — `<object>` tag | ? | ? |
+| D — `<object>` tag | ✅ animated | ❌ Mintlify strips element |
+| E — Markdown `![]()` with viewBox-only SVG | ? | ? |
+| F — `<iframe>` tag | ? | ? |
