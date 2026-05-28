@@ -17,40 +17,98 @@
       "href": "https://github.com/skipper4/Skipper-Foundation"
     }
   },
+  "api": {
+    "openapi": "openapi.json"
+  },
   "navigation": {
-    "groups": [
+    "tabs": [
       {
-        "group": "Overview",
-        "pages": ["introduction", "our-mission"]
-      },
-      {
-        "group": "Our Work",
-        "pages": [
-          "programs/student-leadership",
-          "programs/motivational-speaking",
-          "programs/mentorship",
-          "programs/teacher-development"
+        "tab": "Overview",
+        "groups": [
+          {
+            "group": "Overview",
+            "pages": ["introduction", "our-mission"]
+          },
+          {
+            "group": "Our Work",
+            "pages": [
+              "programs/student-leadership",
+              "programs/motivational-speaking",
+              "programs/mentorship",
+              "programs/teacher-development"
+            ]
+          },
+          {
+            "group": "The Founder",
+            "pages": ["about/skipper-nyongesa"]
+          },
+          {
+            "group": "Get Involved",
+            "pages": [
+              "get-involved/book-a-session",
+              "get-involved/donate",
+              "get-involved/partner"
+            ]
+          },
+          {
+            "group": "News & Impact",
+            "pages": ["news/latest-news", "news/impact-stories"]
+          }
         ]
       },
       {
-        "group": "The Founder",
-        "pages": ["about/skipper-nyongesa"]
-      },
-      {
-        "group": "Get Involved",
-        "pages": [
-          "get-involved/book-a-session",
-          "get-involved/donate",
-          "get-involved/partner"
+        "tab": "Versioned Guides",
+        "versions": [
+          {
+            "version": "v2",
+            "groups": [
+              {
+                "group": "v2 Guide",
+                "pages": [
+                  "versioned/v2/overview",
+                  "versioned/v2/getting-started"
+                ]
+              }
+            ]
+          },
+          {
+            "version": "v1",
+            "groups": [
+              {
+                "group": "v1 Guide (Legacy)",
+                "pages": [
+                  "versioned/v1/overview",
+                  "versioned/v1/getting-started"
+                ]
+              }
+            ]
+          }
         ]
       },
       {
-        "group": "News & Impact",
-        "pages": ["news/latest-news", "news/impact-stories"]
+        "tab": "API Reference",
+        "groups": [
+          {
+            "group": "Overview",
+            "pages": ["api-reference/introduction"]
+          },
+          {
+            "group": "Endpoints",
+            "pages": [
+              "api-reference/create-item",
+              "api-reference/list-items"
+            ]
+          }
+        ]
       },
       {
-        "group": "Internal Tests",
-        "pages": ["svg-animation-test"]
+        "tab": "Internal Tests",
+        "groups": [
+          {
+            "group": "Tests",
+            "pages": ["svg-animation-test"]
+          }
+        ]
       }
     ]
   }

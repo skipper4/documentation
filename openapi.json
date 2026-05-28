@@ -1,0 +1,95 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Bug Test API",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://httpbin.org",
+      "description": "HTTPBin (echoes requests back)"
+    }
+  ],
+  "paths": {
+    "/post": {
+      "post": {
+        "operationId": "createItem",
+        "summary": "Create Item (requestBody.required = true)",
+        "description": "Tests CUS-1527: when requestBody.required is true and all fields are optional, submitting the empty form should send {} — not omit the body entirely.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Optional name field"
+                  },
+                  "email": {
+                    "type": "string",
+                    "format": "email",
+                    "description": "Optional email field"
+                  },
+                  "tags": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "Optional list of tags"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Request echoed back by HTTPBin",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity — body was missing"
+          }
+        }
+      }
+    },
+    "/get": {
+      "get": {
+        "operationId": "listItems",
+        "summary": "List Items",
+        "description": "Simple GET endpoint with no required body.",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 10
+            },
+            "description": "Max number of items to return"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of items",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

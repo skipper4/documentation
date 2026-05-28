@@ -1,0 +1,16 @@
+---
+title: "API Reference"
+description: "Test pages for CUS-1527 (required body) and version dropdown persistence."
+---
+
+## Endpoints
+
+Two endpoints are configured for testing:
+
+- **POST /post** — `requestBody.required: true` with all-optional fields. Switch to the **API Reference** tab and submit the form without filling any fields. Before the fix, no body is sent (causing 422). After the fix, `{}` is sent.
+
+- **GET /get** — Simple GET with no required body (control case).
+
+## Version Dropdown Test
+
+Switch between the **Versioned Guides** tab and this **API Reference** tab. The version dropdown in **Versioned Guides** should remember your selected version when you return.
