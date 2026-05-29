@@ -3,6 +3,6 @@
    as the first child of mdx-content, which prevents the :first-child margin-top: 0
    rule from applying to the actual first paragraph (rendered as span[data-as="p"]).
    This targets that span directly when it follows the injected blockquote. */
-div.mdx-content.prose > blockquote[data-agent-docs-index] + span[data-as="p"] {
+#content-area div.mdx-content.prose > blockquote[data-agent-docs-index] + span[data-as="p"] {
   margin-top: 0;
 }
