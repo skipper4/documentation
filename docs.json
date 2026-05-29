@@ -107,6 +107,10 @@
           {
             "group": "Tests",
             "pages": ["svg-animation-test"]
+          },
+          {
+            "group": "Bug Repros",
+            "pages": ["test-bugs/paste-target"]
           }
         ]
       }
