@@ -50,7 +50,7 @@
       },
       {
         "group": "Internal Tests",
-        "pages": ["svg-animation-test"]
+        "pages": []
       }
     ]
   }
