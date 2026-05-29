@@ -17,6 +17,7 @@
       "href": "https://github.com/skipper4/Skipper-Foundation"
     }
   },
+  "css": "/styles.css",
   "api": {
     "openapi": "openapi.json"
   },
