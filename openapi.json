@@ -61,6 +61,28 @@
         }
       }
     },
+    "/items": {
+      "post": {
+        "operationId": "postItems",
+        "summary": "Post Items (discriminator bug repro)",
+        "description": "Reproduces the missing discriminator field bug. The generated cURL sample should include `platform` but omits it in client versions >= 0.0.2986.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateItemRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/get": {
       "get": {
         "operationId": "listItems",
@@ -89,6 +111,78 @@
             }
           }
         }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CreateItemRequest": {
+        "type": "object",
+        "required": ["targets"],
+        "properties": {
+          "targets": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TargetInput"
+            }
+          }
+        }
+      },
+      "TargetInput": {
+        "oneOf": [
+          { "$ref": "#/components/schemas/AlphaInput" },
+          { "$ref": "#/components/schemas/BetaInput" }
+        ],
+        "discriminator": {
+          "propertyName": "platform",
+          "mapping": {
+            "ALPHA": "#/components/schemas/AlphaInput",
+            "BETA": "#/components/schemas/BetaInput"
+          }
+        }
+      },
+      "AlphaPlatform": {
+        "type": "object",
+        "required": ["platform"],
+        "properties": {
+          "platform": {
+            "type": "string",
+            "enum": ["ALPHA"]
+          }
+        }
+      },
+      "BetaPlatform": {
+        "type": "object",
+        "required": ["platform"],
+        "properties": {
+          "platform": {
+            "type": "string",
+            "enum": ["BETA"]
+          }
+        }
+      },
+      "RequiredId": {
+        "type": "object",
+        "required": ["id"],
+        "properties": {
+          "id": {
+            "type": "string"
+          }
+        }
+      },
+      "AlphaInput": {
+        "title": "Alpha",
+        "allOf": [
+          { "$ref": "#/components/schemas/AlphaPlatform" },
+          { "$ref": "#/components/schemas/RequiredId" }
+        ]
+      },
+      "BetaInput": {
+        "title": "Beta",
+        "allOf": [
+          { "$ref": "#/components/schemas/BetaPlatform" },
+          { "$ref": "#/components/schemas/RequiredId" }
+        ]
       }
     }
   }

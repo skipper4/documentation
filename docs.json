@@ -97,7 +97,8 @@
             "group": "Endpoints",
             "pages": [
               "api-reference/create-item",
-              "api-reference/list-items"
+              "api-reference/list-items",
+              "api-reference/post-items"
             ]
           }
         ]
