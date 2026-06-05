@@ -112,7 +112,7 @@
           },
           {
             "group": "Bug Repros",
-            "pages": ["test-bugs/paste-target"]
+            "pages": ["test-bugs/paste-target", "test-bugs/youtube-tabs"]
           }
         ]
       }

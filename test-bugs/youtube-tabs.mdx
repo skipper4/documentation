@@ -1,0 +1,38 @@
+---
+title: "YouTube Embeds in Tabs"
+description: "Repro for T-34409 — blurry/inconsistent YouTube rendering inside multi-tab docs"
+---
+
+> **Repro:** jm@spacebring.com reported that YouTube embeds inside a multi-tab page render inconsistently — some tabs look fine, others look blurry. Single-tab pages are unaffected. All tabs use identical `<iframe>` embed code.
+
+<Tabs>
+  <Tab title="Rooms">
+    This tab has a YouTube embed (same code as the other tabs).
+
+    <iframe src="https://www.youtube.com/embed/n6SK33xMM4A" title="YouTube video player" frameborder="0" className="w-full aspect-video rounded-xl" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen />
+  </Tab>
+
+  <Tab title="Desks">
+    This tab has a YouTube embed (same code as the other tabs).
+
+    <iframe src="https://www.youtube.com/embed/1YEfgzxwzpo" title="YouTube video player" frameborder="0" className="w-full aspect-video rounded-xl" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen />
+  </Tab>
+
+  <Tab title="Offices">
+    This tab has a YouTube embed (same code as the other tabs).
+
+    <iframe src="https://www.youtube.com/embed/IvRQMVUbJK8" title="YouTube video player" frameborder="0" className="w-full aspect-video rounded-xl" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen />
+  </Tab>
+
+  <Tab title="Parking">
+    This tab has no video — control tab to confirm the tabs themselves render correctly.
+  </Tab>
+</Tabs>
+
+---
+
+## Single-tab control
+
+One video outside any `<Tabs>` wrapper — the customer says this case renders fine.
+
+<iframe src="https://www.youtube.com/embed/n6SK33xMM4A" title="YouTube video player" frameborder="0" className="w-full aspect-video rounded-xl" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen />
