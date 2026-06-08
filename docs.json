@@ -50,7 +50,9 @@
       },
       {
         "group": "Internal Tests",
-        "pages": []
+        "pages": [
+          "untitled-page"
+        ]
       }
     ]
   }
