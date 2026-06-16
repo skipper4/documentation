@@ -98,7 +98,8 @@
             "pages": [
               "api-reference/create-item",
               "api-reference/list-items",
-              "api-reference/post-items"
+              "api-reference/post-items",
+              "api-reference/list-sources"
             ]
           }
         ]

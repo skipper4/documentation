@@ -112,6 +112,28 @@
           }
         }
       }
+    },
+    "/sources": {
+      "get": {
+        "operationId": "listSources",
+        "summary": "List Sources (root-level array response)",
+        "description": "Repro for root-level array response not rendering in the API playground. The 200 response schema is `type: array` at the root — the playground should clearly show this is an array, but currently it doesn't.",
+        "responses": {
+          "200": {
+            "description": "A list of sources",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Source"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -183,6 +205,29 @@
           { "$ref": "#/components/schemas/BetaPlatform" },
           { "$ref": "#/components/schemas/RequiredId" }
         ]
+      },
+      "Source": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for the source"
+          },
+          "name": {
+            "type": "string",
+            "description": "Display name of the source"
+          },
+          "type": {
+            "type": "string",
+            "enum": ["database", "file", "api"],
+            "description": "The kind of source"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When the source was created"
+          }
+        }
       }
     }
   }
